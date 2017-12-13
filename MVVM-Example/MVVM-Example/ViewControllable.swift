@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+protocol ViewControllable {
+
+    var viewModel: ViewModel { get set }
+
+}

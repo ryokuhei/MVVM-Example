@@ -7,3 +7,21 @@
 //
 
 import Foundation
+import UIKit
+
+class NavigationViewController: UINavigationController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        let storyboard = UIStoryboard(name: "Table", bundle: nil)
+        let rootVC = storyboard.instantiateInitialViewController() as! TableViewController
+        let navigationVC = UINavigationController(rootViewController: rootVC)
+        self.present(navigationVC, animated: true, completion: nil)
+    }
+}

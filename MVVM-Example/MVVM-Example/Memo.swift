@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class MemoEntity: Object {
+class Memo: Object {
     dynamic var id: Int = 0
     dynamic var memoTitle: String = ""
     dynamic var memoText: String = ""

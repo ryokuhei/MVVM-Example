@@ -7,3 +7,18 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
+
+struct MainViewModel {
+
+    var text = Variable<String?>("")
+
+    var isButtonEnable: Observable<Bool> {
+        return text.asObservable()
+            .map {!$0!.isEmpty}
+    }
+
+    init() {
+    }
+}

@@ -7,3 +7,12 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
+
+struct NextViewModel {
+    var label = Variable<String?>("")
+
+    init() {
+    }
+}

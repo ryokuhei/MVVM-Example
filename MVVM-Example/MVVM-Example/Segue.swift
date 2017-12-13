@@ -7,3 +7,39 @@
 //
 
 import Foundation
+import UIKit
+
+enum Segue {
+    case next
+    case main
+
+    var storyboard: String {
+        switch self {
+        case .next:
+            return "Next"
+
+        case .main:
+            return "Main"
+        }
+    }
+
+    func showViewController(viewModel: ViewModel) -> NextViewController {
+        let storyboard = UIStoryboard(name: self.storyboard, bundle: nil)
+
+        var viewController = NextViewController()
+
+        switch self {
+        case .next:
+            viewController = storyboard.instantiateInitialViewController() as! NextViewController
+            viewController.setViewModel(viewModel: viewModel as! NextViewModel)
+//            navigationController?.pushViewController(viewController, animated: true)
+        default:
+            break
+        }
+        return viewController
+    }
+
+    func backViewController() {
+//        _ = slef.navigationController?.popViewController(animated: true)
+    }
+}
