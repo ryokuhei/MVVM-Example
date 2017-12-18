@@ -1,5 +1,8 @@
 PODS:
   - Differentiator (2.0.2)
+  - KRActivityIndicatorView (2.1.1)
+  - KRProgressHUD (3.1.2):
+    - KRActivityIndicatorView (= 2.1.1)
   - Realm (3.0.2):
     - Realm/Headers (= 3.0.2)
   - Realm/Headers (3.0.2)
@@ -14,6 +17,8 @@ PODS:
   - RxSwift (3.6.1)
 
 DEPENDENCIES:
+  - KRActivityIndicatorView
+  - KRProgressHUD (~> 3.0)
   - RealmSwift (~> 3.0)
   - RxCocoa (~> 3.0)
   - RxDataSources (~> 2.0)
@@ -21,12 +26,14 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Differentiator: caa9b3957981a2ac8e6b2eac8a676af461caa604
+  KRActivityIndicatorView: fa5df9f4cf039651ad8b0f9c11c3159d1e19299f
+  KRProgressHUD: 6e23870531f8e854c8cba430b0f5a61074865250
   Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
   RealmSwift: 695393add1b8f9d5fa75dd16e6355cf3935f71e2
   RxCocoa: 84a08739ab186248c7f31ce4ee92d6f8a947d690
   RxDataSources: 7f190474a93a206c082c2d74c4cc9c8f7bea4feb
   RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
 
-PODFILE CHECKSUM: 2b7a0cb3c414104d846fdfbbc06f6f828f32d255
+PODFILE CHECKSUM: f201cf412ef407b12a1e2969c7af85809423c659
 
 COCOAPODS: 1.2.1

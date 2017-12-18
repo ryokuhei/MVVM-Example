@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>KRActivityIndicatorView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>KRProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-MVVM-Example.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -51,52 +61,6 @@
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>050AB12A66B0D36EED35EE2E045C8D99</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>29CDA1463E2D1E460B840DA36582B64F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7759B4CB845B676C24EB03F99E1A68FD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>844C9B244CEFA2F26288789C423101B4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>97196C71D1E6F42DBD0866007E72B600</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CD610AAF387B2DEFEE12DBDD698E6E79</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D7228E7232C2D9592179836D2802B122</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EF37E9C151BB2745480E05080B90FB89</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F4880E05280B28623030D1027DDF266F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>

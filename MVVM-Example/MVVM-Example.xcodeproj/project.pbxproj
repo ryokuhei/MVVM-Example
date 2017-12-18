@@ -34,6 +34,7 @@
 		6E75B3041FD82E62002B4641 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E75B3031FD82E62002B4641 /* ViewController.swift */; };
 		6E75B3061FD83AE8002B4641 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E75B3051FD83AE8002B4641 /* TabBar.storyboard */; };
 		6E75B3081FD83B21002B4641 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E75B3071FD83B21002B4641 /* TabBarViewController.swift */; };
+		6E7F1F4E1FE8047D00A8DB08 /* SavingMemoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7F1F4D1FE8047D00A8DB08 /* SavingMemoUseCase.swift */; };
 		6EB54A391FE025520092BA9E /* MemoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB54A381FE025520092BA9E /* MemoDataSource.swift */; };
 		C78058366692EFF31A68E895 /* Pods_MVVM_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCBEFFEC988000EF84EC89B0 /* Pods_MVVM_Example.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,7 @@
 		6E75B3031FD82E62002B4641 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6E75B3051FD83AE8002B4641 /* TabBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		6E75B3071FD83B21002B4641 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		6E7F1F4D1FE8047D00A8DB08 /* SavingMemoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingMemoUseCase.swift; sourceTree = "<group>"; };
 		6EB54A381FE025520092BA9E /* MemoDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoDataSource.swift; sourceTree = "<group>"; };
 		7CF1B8621D0DAE69C25390B1 /* Pods-MVVM-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-ExampleTests/Pods-MVVM-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		9824850D58AFD765A2AAB68A /* Pods_MVVM_ExampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVVM_ExampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +221,7 @@
 		6E1E36071FC79E840033C81F /* models */ = {
 			isa = PBXGroup;
 			children = (
+				6E7F1F4C1FE8038500A8DB08 /* usecase */,
 				6E21E91E1FDD29A0006E3F16 /* dao */,
 				6E21E91B1FDD2113006E3F16 /* entity */,
 				6E1E36131FC7A0640033C81F /* Segue.swift */,
@@ -276,6 +279,14 @@
 				6E21E91F1FDD29B9006E3F16 /* MemoDao.swift */,
 			);
 			name = dao;
+			sourceTree = "<group>";
+		};
+		6E7F1F4C1FE8038500A8DB08 /* usecase */ = {
+			isa = PBXGroup;
+			children = (
+				6E7F1F4D1FE8047D00A8DB08 /* SavingMemoUseCase.swift */,
+			);
+			name = usecase;
 			sourceTree = "<group>";
 		};
 		6EB54A371FE025130092BA9E /* datasource */ = {
@@ -584,6 +595,7 @@
 				6E1E35DE1FC79E4C0033C81F /* MVVM_Example.xcdatamodeld in Sources */,
 				6E1E35D61FC79E4C0033C81F /* AppDelegate.swift in Sources */,
 				6E1E360C1FC79F3A0033C81F /* MainViewController.swift in Sources */,
+				6E7F1F4E1FE8047D00A8DB08 /* SavingMemoUseCase.swift in Sources */,
 				6E75B3081FD83B21002B4641 /* TabBarViewController.swift in Sources */,
 				6E1E36101FC79FE90033C81F /* MainViewModel.swift in Sources */,
 				6E1E36141FC7A0640033C81F /* Segue.swift in Sources */,

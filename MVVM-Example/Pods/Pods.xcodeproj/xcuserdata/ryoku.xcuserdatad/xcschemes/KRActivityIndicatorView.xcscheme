@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '8759277FD4F85FD27A29824259FC782D'
-               BlueprintName = 'RealmSwift'
+               BlueprintIdentifier = '9C4AED8E7F0E8047550BDB01102B0913'
+               BlueprintName = 'KRActivityIndicatorView'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'RealmSwift.framework'>
+               BuildableName = 'KRActivityIndicatorView.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

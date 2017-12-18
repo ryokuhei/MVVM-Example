@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import KRActivityIndicatorView
+import KRProgressHUD
 
 class ViewController: UIViewController {
 
@@ -18,37 +20,50 @@ class ViewController: UIViewController {
 
     var viewModel = ViewModel(memo: Memo())
     let disposeBag = DisposeBag()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let rightItemView = UIBarButtonItem(title: "Save", style: .plain, target: nil, action: nil)
+        self.navigationItem.rightBarButtonItem = rightItemView
+        
+        self.binding()
 
+    }
+    
+    func binding() {
         self.viewModel.memoTitle.asDriver()
             .drive(label.rx.text)
             .disposed(by: disposeBag)
-
+        
         self.viewModel.memoText.asDriver()
             .drive(memoText.rx.text)
             .disposed(by: disposeBag)
-
-        let rightItemView = UIBarButtonItem(title: "Save", style: .plain, target: nil, action: nil)
-        self.navigationItem.rightBarButtonItem = rightItemView
-
+        
         let tap = self.navigationItem.rightBarButtonItem?.rx.tap
-        tap?.asDriver().drive(viewModel.saveButtonTap)
-        .disposed(by: disposeBag)
+        tap?.subscribe {
+            //            [unowned self]
+            _ in
+            
+            self.viewModel.tapButton.onNext()
 
-        self.viewModel.savingObsavable.subscribe(onNext: {memo in
-            self.save(memo: memo)
+        }.disposed(by: disposeBag)
+        
+        self.viewModel.savingObservable.subscribe(onNext: {
+            result in
+            
+            switch result {
+            case .success(let message):
+                print(message)
+                KRProgressHUD.showSuccess(withMessage: message)
+                
+            case .failure(_):
+                KRProgressHUD.showError()
+            }
         }).addDisposableTo(disposeBag)
-
+        
         let memoTextObserbable = self.memoText.rx.text
         memoTextObserbable.bind(to: self.viewModel.memoText)
             .disposed(by: disposeBag)
-
-    }
-
-    private func save(memo: Memo) {
-        self.viewModel.saveMemo(memo: memo)
-
     }
 }
