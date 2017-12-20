@@ -12,31 +12,31 @@ import RxSwift
 import RealmSwift
 
 class TableViewModel {
+    
+    private let getMemoListUseCase = GetMemoListUseCase()
+    private let addMemoUseCase = AddMemoUseCase()
+    private let deleteMemoUseCase = DeleteMemoUseCase()
 
     let memoList = Variable<[Memo]>([])
 
-    let listObservable: Observable<[Memo]>
-
+    lazy var listObservable: Observable<[Memo]> = {
+        return self.memoList
+            .asObservable()
+    }()
+    
     init() {
-        let memoDao = MemoDao()
-        self.memoList.value = memoDao.getList()
-
-        listObservable = memoList
-           .asObservable()
+       self.memoList.value = getMemoListUseCase.invoke()
     }
 
     func addMemo() {
-        let memoDao = MemoDao()
-
-        let memo = Memo()
-        memo.id        = memoDao.newId()
-        memo.memoTitle = "test \(memo.id)"
-
-        guard memoDao.insert(memo: memo) else {
-            print("failed to insert....")
-            return
-        }
-        self.memoList.value = memoDao.getList()
+        addMemoUseCase.invoke()
+        self.memoList.value = getMemoListUseCase.invoke()
+    }
+    
+    func deleteMemo(index: Int) {
+        let id = memoList.value[index].id
+        deleteMemoUseCase.ivoke(id: id)
+        self.memoList.value = getMemoListUseCase.invoke()
     }
 
 }

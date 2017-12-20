@@ -29,7 +29,7 @@ class MemoDao {
             return 0
         }
         var id = 0
-        if let memo = self.realm.objects(Memo.self).last,
+        if let memo = self.realm.objects(Memo.self).sorted(byKeyPath: key).last,
            let lastId = memo[key] as? Int {
             id = lastId + 1
         } else {
@@ -55,13 +55,9 @@ class MemoDao {
     func update(memo: Memo) -> Bool {
         var result: Bool = false
 
-  //      let memoObject = self.realm.object(ofType: Memo.self, forPrimaryKey: memo.id)
-
         try! self.realm.write {
 
             self.realm.add(memo, update: true)
-//            memoObject?.memoTitle = memo.memoTitle
- //           memoObject?.memoText  = memo.memoText
 
             result = true
         }
@@ -70,7 +66,11 @@ class MemoDao {
     }
 
     func getList() -> [Memo] {
-        let result =  self.realm.objects(Memo.self)
+        guard let id = Memo.primaryKey() else {
+            print("undefine primaryKey...")
+            return []
+        }
+        let result =  self.realm.objects(Memo.self).sorted(byKeyPath: id)
         return Array(result)
     }
 
@@ -80,11 +80,13 @@ class MemoDao {
             return Memo()
         }
 
-        print("[get]")
-        print("id: \(memo.id)")
-        print("title: \(memo.memoTitle)")
-        print("text: \(memo.memoText)")
-
         return memo
+    }
+    
+    func delete(memo: Memo) {
+        
+        try! realm.write {
+            realm.delete(memo)
+        }
     }
 }

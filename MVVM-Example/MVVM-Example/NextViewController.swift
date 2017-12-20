@@ -21,9 +21,8 @@ class NextViewController: UIViewController {
     let disposeBag = DisposeBag()
 
     override  func viewDidLoad() {
-
         super.viewDidLoad()
-
+        
         // viewModel ->view
         viewModel.label.asDriver()
             .drive(self.label.rx.text)

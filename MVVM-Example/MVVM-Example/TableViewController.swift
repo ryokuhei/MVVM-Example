@@ -19,34 +19,49 @@ class TableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
-
-        let addObservable = navigationItem.rightBarButtonItem?.rx.tap
+        
+        self.bainding()
+    }
+    
+    func bainding() {
+        let addObservable = self.navigationItem.rightBarButtonItem?.rx.tap
         addObservable?.asDriver()
             .drive(onNext: { _ in
-                self.addMemo()
+                self.viewModel.addMemo()
             }).addDisposableTo(disposeBag)
-
+        
         tableView.dataSource = nil
         let datasource = MemoDataSource()
         self.viewModel.listObservable.bind(to: tableView.rx.items(dataSource: datasource))
             .addDisposableTo(disposeBag)
-
     }
-
-    func addMemo() {
-        self.viewModel.addMemo()
-    }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let memoDao = MemoDao()
 
         let storyboard = UIStoryboard(name: "View", bundle: nil)
         let vVC = storyboard.instantiateInitialViewController() as! ViewController
 
-        let memo = memoDao.get(id: self.viewModel.memoList.value[indexPath.row].id)
+        let memo = self.viewModel.memoList.value[indexPath.row]
         let vViewModel = ViewModel(memo: memo)
         vVC.viewModel = vViewModel
 
         self.navigationController?.pushViewController(vVC, animated: true)
     }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteButton = UITableViewRowAction(style: .default, title: "delete") { (action, index) in
+            self.viewModel.deleteMemo(index: index.row)
+        }
+        deleteButton.backgroundColor = .red
+        return [deleteButton]
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tableView.tableFooterView = UIView(frame: .zero)
+        
+    }
+    
 }

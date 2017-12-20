@@ -41,5 +41,5 @@ class MemoDataSource: NSObject, UITableViewDataSource, RxTableViewDataSourceType
         }
         .on(observedEvent)
     }
-
+    
 }
