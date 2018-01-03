@@ -8,20 +8,18 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-//    let navegationVC = NavigationViewController()
     let tabbarVC = TabBarViewController()
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
-//        self.window?.rootViewController = navegationVC
-//        self.window?.makeKeyAndVisible()
+        
+        FirebaseApp.configure()
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = tabbarVC

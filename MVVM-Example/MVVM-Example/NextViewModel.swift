@@ -10,9 +10,13 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-struct NextViewModel {
+class NextViewModel {
+    
+    let testFireBase = TestFireBase()
+    
     var label = Variable<String?>("")
 
     init() {
+        label.value = testFireBase.getValue()
     }
 }

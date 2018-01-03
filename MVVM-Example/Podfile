@@ -11,6 +11,8 @@ target 'MVVM-Example' do
   pod 'RealmSwift', '~> 3.0'
   pod 'KRActivityIndicatorView'
   pod 'KRProgressHUD', '~> 3.0'
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
   # Pods for MVVM-Example
 
   target 'MVVM-ExampleTests' do

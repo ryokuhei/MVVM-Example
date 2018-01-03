@@ -30,9 +30,17 @@ class MainViewController: UIViewController {
             .bind(to: viewModel.text)
             .disposed(by: disposeBag)
 
-        textObservable
-            .bind(to: nextViewModel.label)
+//        textObservable
+//            .bind(to: nextViewModel.label)
+//            .disposed(by: disposeBag)
+        
+        let tapObsarvable = button.rx.tap
+        
+        tapObsarvable.bind(to: viewModel.buttonTap)
             .disposed(by: disposeBag)
+        
+
+
 
         // viewModel -> view
         viewModel.isButtonEnable
@@ -41,8 +49,8 @@ class MainViewController: UIViewController {
             .disposed(by: disposeBag)
 
         // ButtonTap Event
-        button.rx.tap
-            .asDriver()
+        viewModel.buttonTapObsarvable
+            .asDriver(onErrorDriveWith: Driver.empty())
             .drive(onNext: { _ in
                 self.gotoNextViewController()
             })

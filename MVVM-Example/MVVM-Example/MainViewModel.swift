@@ -10,15 +10,30 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-struct MainViewModel {
+class MainViewModel {
+    
+    let testFireBase = TestFireBase()
 
-    var text = Variable<String?>("")
+    let text = Variable<String?>("")
+    let buttonTap = Variable<Void>()
 
-    var isButtonEnable: Observable<Bool> {
-        return text.asObservable()
+    lazy var isButtonEnable: Observable<Bool> = {
+        return self.text.asObservable()
             .map {!$0!.isEmpty}
-    }
+            .shareReplay(1)
+    }()
+
+    lazy var buttonTapObsarvable: Observable<Void> = {
+        
+        return self.buttonTap.asObservable()
+            .map { _  in
+               self.testFireBase.setValue(value:self.text.value ?? "")
+            }
+            .shareReplay(1)
+    }()
+    
 
     init() {
     }
+    
 }

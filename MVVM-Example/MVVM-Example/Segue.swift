@@ -23,7 +23,7 @@ enum Segue {
         }
     }
 
-    func showViewController(viewModel: ViewModel) -> NextViewController {
+    func showViewController(viewModel: NextViewModel) -> NextViewController {
         let storyboard = UIStoryboard(name: self.storyboard, bundle: nil)
 
         var viewController = NextViewController()
