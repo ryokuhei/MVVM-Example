@@ -13,8 +13,12 @@ import RxSwift
 
 class AuthenticationDao {
     
-    private let resuletSubject = PublishSubject<Result>()
-    lazy var result: Observable<Result> = { return self.resuletSubject }()
+    private let createResuletSubject = PublishSubject<Result>()
+    lazy var createResult: Observable<Result> = { return self.createResuletSubject }()
+    
+    private let loginResuletSubject = PublishSubject<Result>()
+    lazy var loginResult: Observable<Result> = { return self.loginResuletSubject }()
+    
 
     
     func createUserWithEMail(email: String, password: String) ->Observable<Result> {
@@ -23,15 +27,15 @@ class AuthenticationDao {
             [unowned self] (user, error) in
 
             if let error = error {
-                self.resuletSubject.onNext(.Failure(.UnknownError("\(error.localizedDescription)")))
+                self.createResuletSubject.onNext(.Failure(.UnknownError("\(error.localizedDescription)")))
                 return
             } else {
-                self.resuletSubject.onNext(.Success)
+                self.createResuletSubject.onNext(.Success)
                 return
             }
             
         }
-        return self.result
+        return self.createResult
         
     }
     
@@ -39,15 +43,16 @@ class AuthenticationDao {
         Auth.auth().signIn(withEmail: email, password: password) {
             [unowned self] (user, error) in
             if let error = error {
-                self.resuletSubject.onNext(.Failure(.UnknownError("\(error.localizedDescription)")))
+                print("firebase error")
+                self.loginResuletSubject.onNext(.Failure(.UnknownError("\(error.localizedDescription)")))
                 return
             } else {
-                self.resuletSubject.onNext(.Success)
+                self.loginResuletSubject.onNext(.Success)
                 return
             }
         }
         
-        return self.result
+        return self.loginResult
     }
     
 }

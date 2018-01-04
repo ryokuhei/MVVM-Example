@@ -13,11 +13,12 @@ import RxSwift
 protocol SignUpViewModelInputs {
     var mailAddress: Variable<String?> { get }
     var password: Variable<String?> { get }
-    var confirmTap: Variable<Void> { get }
+    var confirmTap: PublishSubject<Void> { get }
 }
 
 protocol SignUpViewModelOutputs {
     var signUp: Observable<Result> { get }
+    var isValid: Observable<Bool> { get }
 }
 
 protocol SignUpViewModelType {
@@ -36,20 +37,44 @@ class SignUpViewModel: SignUpViewModelType, SignUpViewModelInputs, SignUpViewMod
     
     var mailAddress = Variable<String?>("")
     var password = Variable<String?>("")
-    var confirmTap = Variable<Void>()
+    var confirmTap = PublishSubject<Void>()
+    
+
+    lazy var mailValid: Observable<Bool> = {
+        return self.mailAddress.asObservable()
+            .map { mail -> Bool in
+                mail?.count ?? 0 > 0
+            }.shareReplay(1)
+    }()
+    
+    lazy var passValid: Observable<Bool> = {
+        return self.password.asObservable()
+            .map { pass -> Bool in
+                pass?.count ?? 0 > 0
+            }.shareReplay(1)
+    }()
+    
+    
+    lazy var isValid: Observable<Bool> = {
+        return Observable.combineLatest(self.mailValid, self.passValid) {
+            (mail, pass) -> Bool in
+            mail && pass
+        }.shareReplay(1)
+    }()
     
     lazy var signUp: Observable<Result> = {
         return self.confirmTap.asObservable()
-                   .skip(1)
-                   .flatMap { _ -> Observable<Result> in
+                   .flatMap { [unowned self] _ -> Observable<Result> in
                     
                         guard let email = self.mailAddress.value else {
                             let result = Result.Failure(.UnknownError("An Email has not been entered."))
                             return Observable.just(result)
+                                             .shareReplay(1)
                         }
                         guard let password = self.password.value else {
                             let result = Result.Failure(.UnknownError("An Password has not been entered."))
                             return Observable.just(result)
+                                             .shareReplay(1)
                         }
                             
                         return self.signUpUseCase.invoke(email: email, password: password)

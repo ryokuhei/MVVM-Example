@@ -28,12 +28,13 @@ public class MemoViewModel {
     
     lazy var savingObservable: Observable<Result> = {
         
-        return self.tapButton.asObserver().flatMapFirst { _  -> Observable<Result> in
+        return self.tapButton.asObserver().flatMapFirst { [unowned self] _  -> Observable<Result> in
            let memo = Memo()
            guard let id = self.id.value,
                  let title = self.memoTitle.value,
                  let text = self.memoText.value else {
                return Observable.just(.failure("failed..."))
+                                .shareReplay(1)
             }
             memo.id = id
             memo.memoTitle = title
@@ -42,6 +43,7 @@ public class MemoViewModel {
             self.savingMemoUseCase.invoke(memo: memo)
                     
             return Observable.just(.success("success!!"))
+                             .shareReplay(1)
             }
             .catchErrorJustReturn(.failure("failed...."))
             .shareReplay(1)

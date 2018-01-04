@@ -41,7 +41,7 @@ class SignUpViewController : UIViewController {
         self.viewModel.outpus.signUp
             .asDriver(onErrorJustReturn: .Failure(.UnknownError("unnownError......")))
             .drive(onNext: {
-                result in
+                [unowned self] result in
                 switch result {
                 case .Success:
                     KRProgressHUD.set(deadlineTime: 2.0)
@@ -58,6 +58,8 @@ class SignUpViewController : UIViewController {
                 
             })
             .addDisposableTo(disposeBag)
+        self.viewModel.outpus.isValid.bind(to: self.confirm.rx.isEnabled)
+            .disposed(by: self.disposeBag)
     }
     
 }

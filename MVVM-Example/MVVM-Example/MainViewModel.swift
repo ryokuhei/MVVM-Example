@@ -26,7 +26,7 @@ class MainViewModel {
     lazy var buttonTapObsarvable: Observable<Void> = {
         
         return self.buttonTap.asObservable()
-            .map { _  in
+            .map { [unowned self] _  in
                self.testFireBase.setValue(value:self.text.value ?? "")
             }
             .shareReplay(1)

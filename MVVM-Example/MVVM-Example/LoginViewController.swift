@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signup: UIBarButtonItem!
     
 
-    let viewModel: ViewModelType = LoginViewModel()
+    let viewModel: LoginViewModelType = LoginViewModel()
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -45,9 +45,10 @@ class LoginViewController: UIViewController {
         loginTap.bind(to: self.viewModel.inputs.loginTap)
             .disposed(by: disposeBag)
         
+
         let signUp = self.navigationItem.rightBarButtonItem?.rx.tap
         signUp?.bind(to: self.viewModel.inputs.signUpTap)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         
         // outputs
@@ -78,6 +79,11 @@ class LoginViewController: UIViewController {
                 self.navigationController?.pushViewController(viewController, animated: true)
 
             })
+            .disposed(by: disposeBag)
+        
+        self.viewModel.outputs.isValid
+            .asDriver(onErrorJustReturn: false)
+            .drive(self.login.rx.isEnabled)
             .disposed(by: disposeBag)
     }
     

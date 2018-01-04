@@ -26,7 +26,7 @@ class TableViewController: UITableViewController {
     func bainding() {
         let addObservable = self.navigationItem.rightBarButtonItem?.rx.tap
         addObservable?.asDriver()
-            .drive(onNext: { _ in
+            .drive(onNext: { [unowned self] _ in
                 self.viewModel.addMemo()
             }).addDisposableTo(disposeBag)
         

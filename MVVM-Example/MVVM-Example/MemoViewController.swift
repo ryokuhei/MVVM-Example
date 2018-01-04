@@ -42,15 +42,13 @@ class MemoViewController: UIViewController {
         
         let tap = self.navigationItem.rightBarButtonItem?.rx.tap
         tap?.subscribe {
-            //            [unowned self]
-            _ in
-            
+            [unowned self] _ in
             self.viewModel.tapButton.onNext()
 
         }.disposed(by: disposeBag)
         
         self.viewModel.savingObservable.subscribe(onNext: {
-            result in
+            [unowned self]result in
             
             switch result {
             case .success(let message):
