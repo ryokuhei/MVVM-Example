@@ -28,11 +28,11 @@ class SignUpViewController : UIViewController {
         self.password.isSecureTextEntry = true
         let mail = self.mailaddress.rx.text
         mail.bind(to: self.viewModel.inputs.mailAddress)
-        .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         let pass = self.password.rx.text
         pass.bind(to: self.viewModel.inputs.password)
-        .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         let confirmTap = self.confirm.rx.tap
         confirmTap.bind(to: self.viewModel.inputs.confirmTap)
@@ -57,7 +57,7 @@ class SignUpViewController : UIViewController {
                 }
                 
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         self.viewModel.outpus.isValid.bind(to: self.confirm.rx.isEnabled)
             .disposed(by: self.disposeBag)
     }

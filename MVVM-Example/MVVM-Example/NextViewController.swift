@@ -26,14 +26,14 @@ class NextViewController: UIViewController {
         // viewModel ->view
         viewModel.label.asDriver()
             .drive(self.label.rx.text)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // ButtonTap Event
         let backButton = self.backButton.rx.tap
         backButton.asDriver()
             .drive(onNext: {
                 self.onBack()
-            }).addDisposableTo(disposeBag)
+            }).disposed(by: disposeBag)
 
     }
 

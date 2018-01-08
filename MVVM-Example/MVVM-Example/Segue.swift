@@ -31,7 +31,7 @@ enum Segue {
         switch self {
         case .next:
             viewController = storyboard.instantiateInitialViewController() as! NextViewController
-            viewController.setViewModel(viewModel: viewModel as! NextViewModel)
+            viewController.setViewModel(viewModel: viewModel )
 //            navigationController?.pushViewController(viewController, animated: true)
         default:
             break

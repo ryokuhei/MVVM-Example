@@ -10,9 +10,9 @@ import Foundation
 import RealmSwift
 
 class Memo: Object {
-    dynamic var id: Int = 0
-    dynamic var memoTitle: String = ""
-    dynamic var memoText: String = ""
+    @objc dynamic var id: Int = 0
+    @objc dynamic var memoTitle: String = ""
+    @objc dynamic var memoText: String = ""
 
     override static func primaryKey() -> String? {
         return "id"

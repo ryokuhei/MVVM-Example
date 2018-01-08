@@ -22,7 +22,7 @@ class TableViewModel {
     lazy var listObservable: Observable<[Memo]> = {
         return self.memoList
             .asObservable()
-            .shareReplay(1)
+            .share(replay: 1)
     }()
     
     init() {

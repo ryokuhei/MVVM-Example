@@ -28,12 +28,12 @@ class TableViewController: UITableViewController {
         addObservable?.asDriver()
             .drive(onNext: { [unowned self] _ in
                 self.viewModel.addMemo()
-            }).addDisposableTo(disposeBag)
+            }).disposed(by: disposeBag)
         
         tableView.dataSource = nil
         let datasource = MemoDataSource()
         self.viewModel.listObservable.bind(to: tableView.rx.items(dataSource: datasource))
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -54,21 +54,33 @@ class TableViewController: UITableViewController {
         }
     }
     
-    @available(iOS 11.0, *)
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//    @available(iOS 11.0, *)
+//    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
-        let delete = UIContextualAction(style: .normal, title: "delete", handler: {
-            (action: UIContextualAction, view: UIView, success: (Bool) -> Void) in
-                self.viewModel.deleteMemo(index: indexPath.row)
-            })
+//        let delete = UIContextualAction(style: .normal, title: "delete", handler: {
+//            (action: UIContextualAction, view: UIView, success: (Bool) -> Void) in
+//                self.viewModel.deleteMemo(index: indexPath.row)
+//            })
 
-        delete.backgroundColor = .red
+//        delete.backgroundColor = .red
 
-        let swipeAction =  UISwipeActionsConfiguration(actions: [delete])
-        swipeAction.performsFirstActionWithFullSwipe = false
-        return swipeAction
-    }
+//        let swipeAction =  UISwipeActionsConfiguration(actions: [delete])
+//        swipeAction.performsFirstActionWithFullSwipe = false
+//        return swipeAction
+//    }
     
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteButton = UITableViewRowAction(style: .normal, title: "delete", handler: {
+           (action, index) in
+            
+            self.viewModel.deleteMemo(index: index.row)
+            print("delete")
+        })
+        deleteButton.backgroundColor = .red
+        
+        return [deleteButton]
+    }
+
 //    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
 //        let deleteButton = UITableViewRowAction(style: .normal, title: "delete") { (action, index) in

@@ -42,7 +42,7 @@ final class LoginViewModel: LoginViewModelType, LoginViewModelInputs, LoginViewM
         return  self.id.asObservable()
                     .map { id -> Bool in
                         id?.count ?? 0 > 0
-                    }.shareReplay(1)
+            }.share(replay: 1)
         
     }()
     
@@ -50,7 +50,7 @@ final class LoginViewModel: LoginViewModelType, LoginViewModelInputs, LoginViewM
         return self.pass.asObservable()
                    .map { pass ->Bool in
                        pass?.count ?? 0 > 0
-                   }.shareReplay(1)
+            }.share(replay: 1)
         
     }()
     
@@ -58,7 +58,7 @@ final class LoginViewModel: LoginViewModelType, LoginViewModelInputs, LoginViewM
         return Observable.combineLatest(self.idValid, self.passValid) {
             (id, pass) in
             id && pass
-        }.shareReplay(1)
+            }.share(replay: 1)
         
     }()
     
@@ -74,12 +74,12 @@ final class LoginViewModel: LoginViewModelType, LoginViewModelInputs, LoginViewM
                 let result = self.loginUseCase.invoke(id: id, pass: pass)
 
                 return result
-            }.shareReplay(1)
+            }.share(replay: 1)
     }()
     
     lazy var gotoSignUp: Observable<Void> = {
         return self.signUpTap.asObservable()
-                   .shareReplay(1)
+            .share(replay: 1)
     }()
     
     init() {

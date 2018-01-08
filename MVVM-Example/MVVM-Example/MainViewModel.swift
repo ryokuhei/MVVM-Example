@@ -15,12 +15,12 @@ class MainViewModel {
     let testFireBase = TestFireBase()
 
     let text = Variable<String?>("")
-    let buttonTap = Variable<Void>()
+    let buttonTap = PublishSubject<Void>()
 
     lazy var isButtonEnable: Observable<Bool> = {
         return self.text.asObservable()
             .map {!$0!.isEmpty}
-            .shareReplay(1)
+            .share(replay: 1)
     }()
 
     lazy var buttonTapObsarvable: Observable<Void> = {
@@ -29,7 +29,7 @@ class MainViewModel {
             .map { [unowned self] _  in
                self.testFireBase.setValue(value:self.text.value ?? "")
             }
-            .shareReplay(1)
+            .share(replay: 1)
     }()
     
 

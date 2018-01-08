@@ -40,15 +40,12 @@ class MemoViewController: UIViewController {
             .drive(memoText.rx.text)
             .disposed(by: disposeBag)
         
-        let tap = self.navigationItem.rightBarButtonItem?.rx.tap
-        tap?.subscribe {
-            [unowned self] _ in
-            self.viewModel.tapButton.onNext()
+        let saveTap = self.navigationItem.rightBarButtonItem?.rx.tap
+        saveTap?.bind(to: self.viewModel.tapButton)
+        .disposed(by: self.disposeBag)
 
-        }.disposed(by: disposeBag)
-        
         self.viewModel.savingObservable.subscribe(onNext: {
-            [unowned self]result in
+            result in
             
             switch result {
             case .success(let message):
@@ -58,7 +55,7 @@ class MemoViewController: UIViewController {
             case .failure(_):
                 KRProgressHUD.showError()
             }
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         let memoTextObserbable = self.memoText.rx.text
         memoTextObserbable.bind(to: self.viewModel.memoText)

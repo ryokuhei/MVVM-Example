@@ -34,7 +34,8 @@ class MemoDataSource: NSObject, UITableViewDataSource, RxTableViewDataSourceType
     }
 
     func tableView(_ tableView: UITableView, observedEvent: Event<[Memo]>) {
-        UIBindingObserver(UIElement: self) { (datasource, element) in
+//        UIBindingObserver(UIElement: self) { (datasource, element) in
+        Binder(self) { (datasource, element) in
             datasource._itemModels = element
             tableView.reloadData()
 

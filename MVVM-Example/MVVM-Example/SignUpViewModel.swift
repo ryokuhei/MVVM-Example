@@ -44,14 +44,14 @@ class SignUpViewModel: SignUpViewModelType, SignUpViewModelInputs, SignUpViewMod
         return self.mailAddress.asObservable()
             .map { mail -> Bool in
                 mail?.count ?? 0 > 0
-            }.shareReplay(1)
+            }.share(replay: 1)
     }()
     
     lazy var passValid: Observable<Bool> = {
         return self.password.asObservable()
             .map { pass -> Bool in
                 pass?.count ?? 0 > 0
-            }.shareReplay(1)
+            }.share(replay: 1)
     }()
     
     
@@ -59,7 +59,7 @@ class SignUpViewModel: SignUpViewModelType, SignUpViewModelInputs, SignUpViewMod
         return Observable.combineLatest(self.mailValid, self.passValid) {
             (mail, pass) -> Bool in
             mail && pass
-        }.shareReplay(1)
+            }.share(replay: 1)
     }()
     
     lazy var signUp: Observable<Result> = {
@@ -69,12 +69,12 @@ class SignUpViewModel: SignUpViewModelType, SignUpViewModelInputs, SignUpViewMod
                         guard let email = self.mailAddress.value else {
                             let result = Result.Failure(.UnknownError("An Email has not been entered."))
                             return Observable.just(result)
-                                             .shareReplay(1)
+                                .share(replay: 1)
                         }
                         guard let password = self.password.value else {
                             let result = Result.Failure(.UnknownError("An Password has not been entered."))
                             return Observable.just(result)
-                                             .shareReplay(1)
+                                .share(replay: 1)
                         }
                             
                         return self.signUpUseCase.invoke(email: email, password: password)

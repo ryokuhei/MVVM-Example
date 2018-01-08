@@ -22,7 +22,7 @@ public class MemoViewModel {
     let id = Variable<Int?>(nil)
     let memoTitle = Variable<String?>("")
     let memoText  = Variable<String?>("")
-    let saveButtonTap = Variable<Void>()
+    let saveButtonTap = PublishSubject<Void>()
     
     let tapButton = PublishSubject<Void>()
     
@@ -34,7 +34,7 @@ public class MemoViewModel {
                  let title = self.memoTitle.value,
                  let text = self.memoText.value else {
                return Observable.just(.failure("failed..."))
-                                .shareReplay(1)
+                .share(replay: 1)
             }
             memo.id = id
             memo.memoTitle = title
@@ -43,10 +43,10 @@ public class MemoViewModel {
             self.savingMemoUseCase.invoke(memo: memo)
                     
             return Observable.just(.success("success!!"))
-                             .shareReplay(1)
+                .share(replay: 1)
             }
             .catchErrorJustReturn(.failure("failed...."))
-            .shareReplay(1)
+            .share(replay: 1)
     }()
 
     init(memo: Memo) {
